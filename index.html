@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carambola Libre | Aprende billar libre a tres bolas</title>
+  <meta name="description" content="Clases, práctica guiada y torneos de billar libre. Registra tu promedio y mejora tu serie.">
+
+  <!-- ============================================================
+       PASO 2 DE LA GUÍA: pega aquí (lo más alto del <head>)
+       el bloque <script> de Google Tag Manager de TU contenedor.
+       ============================================================ -->
+  <!-- GTM-SCRIPT AQUÍ -->
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --paño:#0F4A34;      /* paño del billar */
+      --paño-osc:#0A2E21;
+      --madera:#4A2A17;
+      --marfil:#F5F1E6;
+      --tiza:#3E7CB1;      /* azul de la tiza */
+      --bola:#C8352B;      /* bola roja */
+      --oro:#E3B23C;
+      --texto:#1D2A24;
+    }
+    html{scroll-behavior:smooth}
+    body{font-family:'Work Sans',sans-serif;color:var(--texto);background:var(--marfil)}
+    h1,h2,h3,.navbar-brand{font-family:'Fraunces',serif;font-weight:800;letter-spacing:-.01em}
+    section[id]{scroll-margin-top:72px}
+    .seccion{padding:5rem 0}
+    :focus-visible{outline:3px solid var(--oro);outline-offset:2px}
+
+    /* HEADER */
+    .navbar{background:var(--madera);border-bottom:4px solid var(--oro)}
+    .navbar-brand{color:var(--marfil)!important;font-size:1.4rem}
+    .nav-link{color:#e8dcc4!important}
+    .nav-link:hover{color:var(--oro)!important}
+    .navbar-toggler{border-color:#e8dcc4}
+    .navbar-toggler-icon{filter:invert(1)}
+
+    /* HERO */
+    .hero{padding:9rem 0 5rem;color:var(--marfil);
+      background:radial-gradient(ellipse at 70% 40%,#17694b 0,var(--paño) 45%,var(--paño-osc) 100%)}
+    .hero h1{font-size:clamp(2.4rem,5vw,3.8rem);line-height:1.05}
+    .hero .lead{max-width:34rem;color:#d7e6dd}
+    .etiqueta{display:inline-block;background:rgba(245,241,230,.12);border:1px solid rgba(245,241,230,.3);
+      padding:.3rem .9rem;border-radius:99px;font-size:.9rem;margin-bottom:1.2rem}
+    .btn-bola{background:var(--bola);color:#fff;border:0;font-weight:600;padding:.8rem 1.8rem;border-radius:99px}
+    .btn-bola:hover{background:#a82a21;color:#fff}
+    .enlace-secundario{color:var(--marfil);text-decoration:underline;text-underline-offset:4px}
+
+    /* Mesa de billar (SVG) */
+    .mesa{background:var(--madera);padding:14px;border-radius:18px;box-shadow:0 20px 40px rgba(0,0,0,.35)}
+    .mesa svg{display:block;width:100%;height:auto;border-radius:8px}
+    .tag{position:absolute;background:var(--marfil);color:var(--texto);padding:.45rem .9rem;border-radius:10px;
+      font-size:.85rem;box-shadow:0 6px 16px rgba(0,0,0,.25)}
+    .tag-1{top:-14px;left:8px}.tag-2{bottom:-14px;right:8px}
+
+    /* BENEFICIOS */
+    .titulo-seccion{max-width:36rem;margin:0 auto 3rem;text-align:center}
+    .beneficio{height:100%;padding:2rem;background:#fff;border-radius:6px;border-top:5px solid var(--paño)}
+    .beneficio .bola{width:44px;height:44px;border-radius:50%;margin-bottom:1rem;
+      background:radial-gradient(circle at 32% 30%,#fff 0 12%,var(--c) 13% 100%);box-shadow:inset -5px -6px 10px rgba(0,0,0,.25)}
+
+    /* CTA */
+    .cta-banda{background:var(--madera);color:var(--marfil);padding:4rem 0}
+    .cta-banda p{color:#e8dcc4}
+    .btn-marfil{background:var(--marfil);color:var(--madera);font-weight:600;border-radius:99px;padding:.8rem 1.8rem;border:0}
+    .btn-marfil:hover{background:var(--oro);color:var(--madera)}
+
+    /* PASOS + CALCULADORA */
+    .paso{position:relative;padding-left:0}
+    .paso span{display:inline-grid;place-items:center;width:42px;height:42px;border-radius:50%;
+      background:var(--paño);color:var(--marfil);font-weight:700;margin-bottom:.8rem}
+    .calculadora{max-width:42rem;background:var(--paño);color:var(--marfil);padding:2rem;border-radius:10px;border:6px solid var(--madera)}
+    .calculadora .form-label{font-size:.9rem}
+    .resultado{font-family:'Fraunces',serif;font-size:1.3rem;min-height:2rem;color:var(--oro)}
+
+    /* TESTIMONIOS */
+    .fondo-claro{background:#EAE3D0}
+    .testimonio{height:100%;background:#fff;padding:1.8rem;border-radius:6px;border-left:5px solid var(--bola)}
+    .estrellas{color:var(--oro);letter-spacing:2px}
+    .autor small{display:block;color:#6a6a5e}
+
+    /* REGISTRO (CTA 2) */
+    #registro{background:linear-gradient(160deg,var(--paño) 0,var(--paño-osc) 100%);color:var(--marfil)}
+    .lista-check{list-style:none;padding:0}
+    .lista-check li::before{content:"●";color:var(--oro);margin-right:.6rem}
+    .lista-check li{margin-bottom:.5rem}
+    .formulario{background:var(--marfil);color:var(--texto);padding:1.8rem;border-radius:10px;min-height:260px}
+
+    /* FAQ */
+    .accordion{max-width:46rem}
+    .accordion-button:not(.collapsed){background:#dfeee6;color:var(--paño-osc)}
+
+    /* PRE-FOOTER Y FOOTER */
+    .prefooter{background:var(--oro);padding:3rem 0}
+    .cifra{font-family:'Fraunces',serif;font-size:2.4rem;font-weight:800;margin:0;color:var(--madera)}
+    footer{background:var(--madera);color:#e8dcc4;padding:2.5rem 0}
+
+    @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+  </style>
+</head>
+<body>
+
+  <!-- ============================================================
+       PASO 2 DE LA GUÍA: pega aquí (justo después de <body>)
+       el bloque <noscript> de Google Tag Manager.
+       ============================================================ -->
+  <!-- GTM-NOSCRIPT AQUÍ -->
+
+  <!-- 1. HEADER -->
+  <header>
+    <nav class="navbar navbar-expand-lg fixed-top">
+      <div class="container">
+        <a class="navbar-brand d-flex align-items-center gap-2" href="#inicio">
+          <svg width="30" height="30" viewBox="0 0 40 40" aria-hidden="true">
+            <circle cx="20" cy="20" r="18" fill="#C8352B"/><circle cx="20" cy="20" r="8" fill="#F5F1E6"/>
+            <text x="20" y="24" font-size="11" font-weight="700" text-anchor="middle" fill="#1D2A24">8</text>
+          </svg>
+          Carambola Libre
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu" aria-label="Abrir menú">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="menu">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item"><a class="nav-link" href="#beneficios">Beneficios</a></li>
+            <li class="nav-item"><a class="nav-link" href="#como-funciona">Cómo funciona</a></li>
+            <li class="nav-item"><a class="nav-link" href="#testimonios">Testimonios</a></li>
+            <li class="nav-item"><a class="nav-link" href="#faq">Preguntas</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- 2. HERO -->
+  <section id="inicio" class="hero">
+    <div class="container">
+      <div class="row align-items-center g-5">
+        <div class="col-lg-6">
+          <span class="etiqueta">Clases y torneos de billar libre</span>
+          <h1>Tres bolas, una mesa y tu mejor serie.</h1>
+          <p class="lead my-4">Aprende billar libre con rutinas guiadas, registra tu promedio de carambolas y compite en torneos de tu nivel.</p>
+          <div class="d-flex flex-wrap gap-3 align-items-center">
+            <a href="#registro" class="btn btn-bola btn-lg" id="cta-hero">Quiero jugar mejor</a>
+            <a href="#como-funciona" class="enlace-secundario">Ver cómo funciona</a>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="position-relative">
+            <div class="mesa">
+              <!-- Mesa: 3 bolas (blanca, amarilla, roja) y trayectoria -->
+              <svg viewBox="0 0 400 220" role="img" aria-label="Mesa de billar con tres bolas y la trayectoria de una carambola">
+                <rect width="400" height="220" fill="#17694b"/>
+                <rect x="6" y="6" width="388" height="208" fill="none" stroke="#0A2E21" stroke-width="3"/>
+                <path d="M90 150 L300 40 L360 120 L150 60" fill="none" stroke="#F5F1E6" stroke-width="2" stroke-dasharray="6 6" opacity=".8"/>
+                <circle cx="90" cy="150" r="14" fill="#F5F1E6"/>
+                <circle cx="150" cy="60" r="14" fill="#E3B23C"/>
+                <circle cx="300" cy="40" r="14" fill="#C8352B"/>
+                <circle cx="86" cy="145" r="4" fill="#fff" opacity=".8"/>
+              </svg>
+            </div>
+            <div class="tag tag-1"><strong>Promedio 0,85</strong> esta semana</div>
+            <div class="tag tag-2"><strong>Serie de 14</strong> carambolas</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. BENEFICIOS -->
+  <section id="beneficios" class="seccion">
+    <div class="container">
+      <div class="titulo-seccion">
+        <h2>¿Por qué entrenar con Carambola Libre?</h2>
+        <p>Tres herramientas simples para subir tu nivel en el paño.</p>
+      </div>
+      <div class="row g-4">
+        <div class="col-md-4">
+          <div class="beneficio"><div class="bola" style="--c:#C8352B"></div>
+            <h3 class="h4">Rutinas de práctica</h3>
+            <p>Ejercicios de efecto, distancia y control de fuerza para practicar solo o con un compañero.</p></div>
+        </div>
+        <div class="col-md-4">
+          <div class="beneficio"><div class="bola" style="--c:#E3B23C"></div>
+            <h3 class="h4">Registro de promedio</h3>
+            <p>Anota carambolas y entradas y mira cómo mejora tu promedio partida a partida.</p></div>
+        </div>
+        <div class="col-md-4">
+          <div class="beneficio"><div class="bola" style="--c:#3E7CB1"></div>
+            <h3 class="h4">Torneos por nivel</h3>
+            <p>Compite contra jugadores con un promedio parecido al tuyo. Sin ventajas raras.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. CTA (primer botón; es el que mide el evento de la guía, paso 7) -->
+  <section class="cta-banda">
+    <div class="container">
+      <div class="row align-items-center g-4">
+        <div class="col-md-8">
+          <h2>Tu próxima carambola empieza hoy</h2>
+          <p>Reserva tu cupo en la primera clase gratuita.</p>
+          <a href="#registro" class="btn btn-marfil btn-lg" id="btn-cta-principal">Inscribirme Ahora</a>
+        </div>
+        <div class="col-md-4 text-center" aria-hidden="true">
+          <svg width="150" height="150" viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="46" fill="#C8352B"/><circle cx="50" cy="50" r="20" fill="#F5F1E6"/>
+            <text x="50" y="58" font-size="24" font-weight="700" text-anchor="middle" fill="#1D2A24">3</text>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. EXPLICACIÓN -->
+  <section id="como-funciona" class="seccion">
+    <div class="container">
+      <div class="titulo-seccion"><h2>Tres pasos para empezar</h2></div>
+      <div class="row g-4 mb-5">
+        <div class="col-md-4 paso"><span>1</span><h3 class="h5">Cuéntanos tu nivel</h3><p>Dinos si es tu primera vez o si ya juegas y con qué promedio.</p></div>
+        <div class="col-md-4 paso"><span>2</span><h3 class="h5">Elige tu rutina</h3><p>Te asignamos ejercicios y una mesa para practicar.</p></div>
+        <div class="col-md-4 paso"><span>3</span><h3 class="h5">Mide tu avance</h3><p>Registra tus partidas y celebra cada mejora.</p></div>
+      </div>
+
+      <div class="calculadora mx-auto">
+        <h3 class="text-center h4">Calcula tu promedio de billar</h3>
+        <div class="row g-3 align-items-end">
+          <div class="col-sm-4">
+            <label for="carambolas" class="form-label">Carambolas hechas</label>
+            <input type="number" id="carambolas" class="form-control" value="20" min="0">
+          </div>
+          <div class="col-sm-4">
+            <label for="entradas" class="form-label">Entradas jugadas</label>
+            <input type="number" id="entradas" class="form-control" value="25" min="1">
+          </div>
+          <div class="col-sm-4">
+            <button class="btn btn-bola w-100" id="btn-calcular" type="button">Calcular</button>
+          </div>
+        </div>
+        <p class="resultado text-center mt-3 mb-0" id="resultado" aria-live="polite"></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. TESTIMONIOS -->
+  <section id="testimonios" class="seccion fondo-claro">
+    <div class="container">
+      <div class="titulo-seccion"><h2>Lo que dicen los jugadores</h2></div>
+      <div class="row g-4">
+        <div class="col-md-4"><div class="testimonio">
+          <div class="estrellas" aria-label="5 estrellas">★★★★★</div>
+          <p>"Pasé de 0,4 a 0,7 de promedio en dos meses con las rutinas."</p>
+          <div class="autor"><strong>Mauricio</strong><small>Juega hace 1 año</small></div></div></div>
+        <div class="col-md-4"><div class="testimonio">
+          <div class="estrellas" aria-label="5 estrellas">★★★★★</div>
+          <p>"Nunca había tomado un taco. A la quinta clase ya hacía mis primeras series."</p>
+          <div class="autor"><strong>Paola</strong><small>Principiante</small></div></div></div>
+        <div class="col-md-4"><div class="testimonio">
+          <div class="estrellas" aria-label="5 estrellas">★★★★★</div>
+          <p>"Los torneos por nivel son justos y muy divertidos."</p>
+          <div class="autor"><strong>Jhon</strong><small>Jugador de club</small></div></div></div>
+      </div>
+      <p class="text-center text-muted mt-4"><small>*Testimonios de ejemplo para fines académicos.</small></p>
+    </div>
+  </section>
+
+  <!-- 7. CTA 2 + FORMULARIO HUBSPOT (pasos 4 y 5 de la guía) -->
+  <section id="registro" class="seccion">
+    <div class="container">
+      <div class="row align-items-center g-5">
+        <div class="col-lg-6">
+          <h2>Únete a Carambola Libre</h2>
+          <p>Déjanos tus datos y te escribimos con los horarios de la primera clase gratuita.</p>
+          <ul class="lista-check">
+            <li>Primera clase sin costo</li>
+            <li>Rutinas para todos los niveles</li>
+            <li>Sin spam</li>
+          </ul>
+        </div>
+        <div class="col-lg-6">
+          <div class="formulario">
+            <!-- ======================================================
+                 PASO 5 DE LA GUÍA: reemplaza este bloque por el
+                 código de inserción de TU formulario de HubSpot.
+                 ====================================================== -->
+            <!-- HUBSPOT-FORM AQUÍ -->
+            <p class="text-muted mb-0">Aquí aparecerá tu formulario de HubSpot.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. FAQ -->
+  <section id="faq" class="seccion">
+    <div class="container">
+      <div class="titulo-seccion"><h2>Preguntas frecuentes</h2></div>
+      <div class="accordion mx-auto" id="acordeon">
+        <div class="accordion-item">
+          <h3 class="accordion-header"><button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#p1">¿Qué es el billar libre?</button></h3>
+          <div id="p1" class="accordion-collapse collapse" data-bs-parent="#acordeon">
+            <div class="accordion-body">Es la modalidad de carambola a tres bolas en la que se suma un punto cuando tu bola golpea las otras dos, sin obligación de tocar bandas.</div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h3 class="accordion-header"><button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#p2">¿Necesito experiencia?</button></h3>
+          <div id="p2" class="accordion-collapse collapse" data-bs-parent="#acordeon">
+            <div class="accordion-body">No. Hay rutinas para quien toma un taco por primera vez y para jugadores avanzados.</div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h3 class="accordion-header"><button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#p3">¿Cómo se calcula el promedio?</button></h3>
+          <div id="p3" class="accordion-collapse collapse" data-bs-parent="#acordeon">
+            <div class="accordion-body">Se divide el total de carambolas hechas entre las entradas jugadas.</div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h3 class="accordion-header"><button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#p4">¿Debo llevar mi propio taco?</button></h3>
+          <div id="p4" class="accordion-collapse collapse" data-bs-parent="#acordeon">
+            <div class="accordion-body">No es obligatorio. Puedes usar los tacos del salón mientras decides cuál comprar.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9. PRE-FOOTER -->
+  <section class="prefooter">
+    <div class="container">
+      <div class="row g-4 text-center">
+        <div class="col-md-4"><p class="cifra">+300</p><p class="mb-0">jugadores registrados</p></div>
+        <div class="col-md-4"><p class="cifra">+40</p><p class="mb-0">torneos organizados</p></div>
+        <div class="col-md-4"><p class="cifra">4,8</p><p class="mb-0">calificación promedio</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10. FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="row g-3 align-items-center">
+        <div class="col-md-6">
+          <p class="mb-0"><strong>Carambola Libre</strong></p>
+          <p class="mb-0">Apunta, golpea, repite.</p>
+        </div>
+        <div class="col-md-6 text-md-end">
+          <p class="mb-0"><small>© 2026 Carambola Libre. Proyecto académico.</small></p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Calculadora de promedio (carambolas / entradas)
+    document.getElementById('btn-calcular').addEventListener('click', function () {
+      var c = parseFloat(document.getElementById('carambolas').value);
+      var e = parseFloat(document.getElementById('entradas').value);
+      var r = document.getElementById('resultado');
+      if (isNaN(c) || isNaN(e) || e <= 0 || c < 0) {
+        r.textContent = 'Ingresa carambolas y entradas válidas.';
+        return;
+      }
+      r.textContent = 'Tu promedio es ' + (c / e).toFixed(2).replace('.', ',');
+    });
+  </script>
+</body>
+</html>
+
